@@ -2,38 +2,38 @@
 #include <stdio.h>
 #include <string>
 
-//Screen dimension constants
+// Screen dimensions
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-//Starts up SDL and creates window
+// Start SDL and show window
 bool start();
 
-//Frees media and shuts down SDL
+// Clean up memory and stop SDL
 void stop();
 
-//The window we'll be rendering to
+// Global window
 SDL_Window* window = NULL;
 
-//The window renderer
+// Global renderer
 SDL_Renderer* renderer = NULL;
 
 bool start()
 {
-	//Initialize SDL
+	// Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
 		return false;
 	}
 
-	//Set texture filtering to linear
+	// Set texture filtering to linear
 	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
 	{
 		printf("Warning: Linear texture filtering not enabled!");
 	}
 
-	//Create window
+	// Create window
 	window = SDL_CreateWindow("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == NULL)
 	{
@@ -41,7 +41,7 @@ bool start()
 		return false;
 	}
 
-	//Create vsynced renderer for window
+	// Create vertical sync renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == NULL)
 	{
@@ -49,7 +49,7 @@ bool start()
 		return false;
 	}
 
-	//Initialize renderer color
+	// Initialize renderer color to black
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 
 	return true;
@@ -57,53 +57,70 @@ bool start()
 
 void stop()
 {
-	//Destroy window	
+	// Destroy window
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	window = NULL;
 	renderer = NULL;
 
-	//Quit SDL subsystems
+	// Quit SDL
 	SDL_Quit();
 }
 
 int main(int argc, char* args[])
 {
-	//Start up SDL and create window
+	// Start SDL and show window
 	if (!start())
 	{
 		printf("Failed to start!\n");
 		return 1;
 	}
 
-	//Main loop flag
+	// Main loop flag
 	bool running = true;
 
-	//Event handler
+	// Event handler
 	SDL_Event event;
 
-	//While application is running
+	// Set the boundaries
+	SDL_Rect topBoundary, bottomBoundary;
+	topBoundary.x = 0;
+	topBoundary.y = 100;
+	topBoundary.w = SCREEN_WIDTH;
+	topBoundary.h = 1;
+
+	bottomBoundary.x = 0;
+	bottomBoundary.y = SCREEN_HEIGHT - 100;
+	bottomBoundary.w = SCREEN_WIDTH;
+	bottomBoundary.h = 1;
+
+	// While application is running
 	while (running)
 	{
-		//Handle events on queue
+		// Handle events on queue
 		while (SDL_PollEvent(&event) != 0)
 		{
-			//User requests quit
+			// User requests quit
 			if (event.type == SDL_QUIT)
 			{
 				running = false;
 			}
 		}
 
-		//Clear screen
+		// Clear screen
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
 
-		//Update screen
+		// Render boundaries
+		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_RenderDrawRect(renderer, &topBoundary);
+		SDL_RenderDrawRect(renderer, &bottomBoundary);
+
+		// Update screen
 		SDL_RenderPresent(renderer);
 	}
 
-	//Free resources and close SDL
+	// Clean up memory and stop SDL
 	stop();
 
 	return 0;
