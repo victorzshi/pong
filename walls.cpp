@@ -1,39 +1,39 @@
 #include "walls.h"
 
-Walls::Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT, int thickness)
+Walls::Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT)
 {
-	_renderer = renderer;
+	this->renderer = renderer;
 
-	_top = { 0, 100, SCREEN_WIDTH, thickness };
-	_bottom = { 0, SCREEN_HEIGHT - 100, SCREEN_WIDTH, thickness };
-	_left = { 0, 100, thickness, SCREEN_HEIGHT - 200 };
-	_right = {SCREEN_WIDTH - thickness, 100, thickness, SCREEN_HEIGHT - 200};
+	top = { 0, 100, SCREEN_WIDTH, THICKNESS };
+	bottom = { 0, SCREEN_HEIGHT - 100, SCREEN_WIDTH, THICKNESS };
+	left = { 0, 100, THICKNESS, SCREEN_HEIGHT - 200 };
+	right = {SCREEN_WIDTH - THICKNESS, 100, THICKNESS, SCREEN_HEIGHT - 200};
 }
 
-SDL_Rect& Walls::top()
+SDL_Rect& Walls::get_top()
 {
-	return _top;
+	return top;
 }
 
-SDL_Rect& Walls::bottom()
+SDL_Rect& Walls::get_bottom()
 {
-	return _bottom;
+	return bottom;
 }
 
-SDL_Rect& Walls::left()
+SDL_Rect& Walls::get_left()
 {
-	return _left;
+	return left;
 }
 
-SDL_Rect& Walls::right()
+SDL_Rect& Walls::get_right()
 {
-	return _right;
+	return right;
 }
 
 void Walls::render()
 {
-	SDL_RenderFillRect(_renderer, &_top);
-	SDL_RenderFillRect(_renderer, &_bottom);
-	SDL_RenderFillRect(_renderer, &_left);
-	SDL_RenderFillRect(_renderer, &_right);
+	SDL_RenderFillRect(renderer, &top);
+	SDL_RenderFillRect(renderer, &bottom);
+	SDL_RenderFillRect(renderer, &left);
+	SDL_RenderFillRect(renderer, &right);
 }
