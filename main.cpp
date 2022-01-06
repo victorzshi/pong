@@ -1,6 +1,11 @@
-#include <SDL.h>
 #include <stdio.h>
+
 #include <string>
+
+#include <SDL.h>
+
+#include "ball.h"
+#include "walls.h"
 
 // Screen dimensions
 const int SCREEN_WIDTH = 640;
@@ -83,16 +88,10 @@ int main(int argc, char* args[])
 	SDL_Event event;
 
 	// Set the boundaries
-	SDL_Rect topBoundary, bottomBoundary;
-	topBoundary.x = 0;
-	topBoundary.y = 100;
-	topBoundary.w = SCREEN_WIDTH;
-	topBoundary.h = 1;
+	Walls walls(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	bottomBoundary.x = 0;
-	bottomBoundary.y = SCREEN_HEIGHT - 100;
-	bottomBoundary.w = SCREEN_WIDTH;
-	bottomBoundary.h = 1;
+	// The ball that will move around
+	Ball ball(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 	// While application is running
 	while (running)
@@ -107,14 +106,16 @@ int main(int argc, char* args[])
 			}
 		}
 
+		ball.move(walls.top(), walls.bottom(), walls.left(), walls.right());
+
 		// Clear screen
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
 
 		// Render boundaries
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderDrawRect(renderer, &topBoundary);
-		SDL_RenderDrawRect(renderer, &bottomBoundary);
+		walls.render();
+		ball.render();
 
 		// Update screen
 		SDL_RenderPresent(renderer);
