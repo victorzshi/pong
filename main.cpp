@@ -1,6 +1,10 @@
-#include <SDL.h>
 #include <stdio.h>
+
 #include <string>
+
+#include <SDL.h>
+
+#include "walls.h"
 
 // Screen dimensions
 const int SCREEN_WIDTH = 640;
@@ -83,16 +87,7 @@ int main(int argc, char* args[])
 	SDL_Event event;
 
 	// Set the boundaries
-	SDL_Rect topBoundary, bottomBoundary;
-	topBoundary.x = 0;
-	topBoundary.y = 100;
-	topBoundary.w = SCREEN_WIDTH;
-	topBoundary.h = 1;
-
-	bottomBoundary.x = 0;
-	bottomBoundary.y = SCREEN_HEIGHT - 100;
-	bottomBoundary.w = SCREEN_WIDTH;
-	bottomBoundary.h = 1;
+	Walls walls(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// While application is running
 	while (running)
@@ -113,8 +108,7 @@ int main(int argc, char* args[])
 
 		// Render boundaries
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderDrawRect(renderer, &topBoundary);
-		SDL_RenderDrawRect(renderer, &bottomBoundary);
+		walls.render();
 
 		// Update screen
 		SDL_RenderPresent(renderer);
