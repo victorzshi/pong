@@ -1,3 +1,6 @@
+#include <cstdlib>
+#include <ctime>
+
 #include "ball.h"
 #include "walls.h"
 
@@ -9,8 +12,36 @@ Ball::Ball(SDL_Renderer* renderer, int x, int y, int r, int velocity)
 	_position_y = y;
     _radius = r;
 
-    _velocity_x = velocity;
-    _velocity_y = velocity;
+    // Choose 1 of 4 random directions for ball to go
+    srand(time(NULL));
+    int random_int = rand() % 4;
+    switch (random_int)
+    {
+    case 0:
+        _velocity_x = velocity;
+        _velocity_y = velocity;
+        break;
+
+    case 1:
+        _velocity_x = -velocity;
+        _velocity_y = velocity;
+        break;
+
+    case 2:
+        _velocity_x = -velocity;
+        _velocity_y = -velocity;
+        break;
+
+    case 3: 
+        _velocity_x = velocity;
+        _velocity_y = -velocity;
+        break;
+
+    default:
+        _velocity_x = 0;
+        _velocity_y = 0;
+        break;
+    }
 }
 
 void Ball::move(SDL_Rect& top, SDL_Rect& bottom, SDL_Rect& left, SDL_Rect& right)
