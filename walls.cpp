@@ -1,13 +1,11 @@
 #include "walls.h"
 
-Walls::Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT)
+Walls::Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT, int thickness)
 {
 	_renderer = renderer;
 
-	const int THICKNESS = 5;
-
-	_top = { 0, 100, SCREEN_WIDTH, THICKNESS };
-	_bottom = { 0, SCREEN_HEIGHT - 100, SCREEN_WIDTH, THICKNESS };
+	_top = { 0, 100, SCREEN_WIDTH, thickness };
+	_bottom = { 0, SCREEN_HEIGHT - 100, SCREEN_WIDTH, thickness };
 }
 
 SDL_Rect& Walls::top()

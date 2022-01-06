@@ -5,7 +5,7 @@
 class Walls
 {
 public:
-	Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT);
+	Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT, int thickness = 1);
 
 	SDL_Rect& top();
 		
