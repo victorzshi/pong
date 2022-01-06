@@ -9,17 +9,21 @@ Ball::Ball(SDL_Renderer* renderer, int x, int y, int r, int velocity)
 	_position_y = y;
     _radius = r;
 
-    _velocity_x = 0;
+    _velocity_x = velocity;
     _velocity_y = velocity;
 }
 
-void Ball::move(SDL_Rect& top, SDL_Rect& bottom)
+void Ball::move(SDL_Rect& top, SDL_Rect& bottom, SDL_Rect& left, SDL_Rect& right)
 {
     _position_x += _velocity_x;
     _position_y += _velocity_y;
 
     if (_is_collided(top) || _is_collided(bottom)) {
         _velocity_y *= -1;
+    }
+
+    if (_is_collided(left) || _is_collided(right)) {
+        _velocity_x *= -1;
     }
 }
 

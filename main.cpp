@@ -106,7 +106,7 @@ int main(int argc, char* args[])
 			}
 		}
 
-		ball.move(walls.top(), walls.bottom());
+		ball.move(walls.top(), walls.bottom(), walls.left(), walls.right());
 
 		// Clear screen
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);

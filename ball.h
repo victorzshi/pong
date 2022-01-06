@@ -5,9 +5,9 @@
 class Ball
 {
 public:
-	Ball(SDL_Renderer* renderer, int x, int y, int r = 5, int velocity = 1);
+	Ball(SDL_Renderer* renderer, int x, int y, int r = 5, int velocity = 5);
 
-	void move(SDL_Rect& top, SDL_Rect& bottom);
+	void move(SDL_Rect& top, SDL_Rect& bottom, SDL_Rect& left, SDL_Rect& right);
 
 	void render();
 

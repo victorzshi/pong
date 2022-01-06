@@ -11,10 +11,14 @@ public:
 		
 	SDL_Rect& bottom();
 
+	SDL_Rect& left();
+
+	SDL_Rect& right();
+
 	void render();
 
 private:
 	SDL_Renderer* _renderer;
 
-	SDL_Rect _top, _bottom;
+	SDL_Rect _top, _bottom, _left, _right;
 };
