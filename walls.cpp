@@ -10,6 +10,14 @@ Walls::Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT)
 	right = {SCREEN_WIDTH - THICKNESS, 100, THICKNESS, SCREEN_HEIGHT - 200};
 }
 
+void Walls::render()
+{
+	SDL_RenderFillRect(renderer, &top);
+	SDL_RenderFillRect(renderer, &bottom);
+	SDL_RenderFillRect(renderer, &left);
+	SDL_RenderFillRect(renderer, &right);
+}
+
 SDL_Rect& Walls::get_top()
 {
 	return top;
@@ -28,12 +36,4 @@ SDL_Rect& Walls::get_left()
 SDL_Rect& Walls::get_right()
 {
 	return right;
-}
-
-void Walls::render()
-{
-	SDL_RenderFillRect(renderer, &top);
-	SDL_RenderFillRect(renderer, &bottom);
-	SDL_RenderFillRect(renderer, &left);
-	SDL_RenderFillRect(renderer, &right);
 }

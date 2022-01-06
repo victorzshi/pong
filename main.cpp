@@ -5,6 +5,7 @@
 #include <SDL.h>
 
 #include "ball.h"
+#include "paddle.h"
 #include "walls.h"
 
 // Screen dimensions
@@ -62,66 +63,58 @@ bool start()
 
 void stop()
 {
-	// Destroy window
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	window = NULL;
 	renderer = NULL;
 
-	// Quit SDL
 	SDL_Quit();
 }
 
 int main(int argc, char* args[])
 {
-	// Start SDL and show window
 	if (!start())
 	{
 		printf("Failed to start!\n");
 		return 1;
 	}
 
-	// Main loop flag
 	bool running = true;
 
-	// Event handler
 	SDL_Event event;
 
-	// Set the boundaries
 	Walls walls(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	// The ball that will move around
+	Paddle paddle(renderer, 20, SCREEN_HEIGHT / 2);
+
 	Ball ball(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
-	// While application is running
 	while (running)
 	{
-		// Handle events on queue
 		while (SDL_PollEvent(&event) != 0)
 		{
-			// User requests quit
 			if (event.type == SDL_QUIT)
 			{
 				running = false;
 			}
+
+			paddle.handle_event(event);
 		}
 
+		paddle.move(walls.get_top(), walls.get_bottom());
 		ball.move(walls.get_top(), walls.get_bottom(), walls.get_left(), walls.get_right());
 
-		// Clear screen
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
 
-		// Render boundaries
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		walls.render();
+		paddle.render();
 		ball.render();
 
-		// Update screen
 		SDL_RenderPresent(renderer);
 	}
 
-	// Clean up memory and stop SDL
 	stop();
 
 	return 0;

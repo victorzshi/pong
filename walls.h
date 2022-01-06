@@ -7,15 +7,15 @@ class Walls
 public:
 	Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT);
 
+	void render();
+
 	SDL_Rect& get_top();
-		
+
 	SDL_Rect& get_bottom();
 
 	SDL_Rect& get_left();
 
 	SDL_Rect& get_right();
-
-	void render();
 
 private:
 	const int THICKNESS = 1;
