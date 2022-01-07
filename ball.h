@@ -32,4 +32,8 @@ private:
 	int start_x, start_y;
 
 	int velocity_x, velocity_y;
+
+	bool is_seeded = false;
+
+	void set_random_velocity();
 };

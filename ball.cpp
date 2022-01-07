@@ -16,36 +16,7 @@ Ball::Ball(SDL_Renderer* renderer, int x, int y)
     start_x = x;
     start_y = y;
 
-    // Choose 1 of 4 random directions for ball to go
-    srand(time(NULL));
-    int random_int = rand() % 4;
-    switch (random_int)
-    {
-    case 0:
-        velocity_x = VELOCITY;
-        velocity_y = VELOCITY;
-        break;
-
-    case 1:
-        velocity_x = -VELOCITY;
-        velocity_y = VELOCITY;
-        break;
-
-    case 2:
-        velocity_x = -VELOCITY;
-        velocity_y = -VELOCITY;
-        break;
-
-    case 3: 
-        velocity_x = VELOCITY;
-        velocity_y = -VELOCITY;
-        break;
-
-    default:
-        velocity_x = 0;
-        velocity_y = 0;
-        break;
-    }
+    set_random_velocity();
 }
 
 void Ball::move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle)
@@ -71,6 +42,8 @@ void Ball::move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle)
     {
         x = start_x;
         y = start_y;
+
+        set_random_velocity();
     }
 }
 
@@ -119,4 +92,43 @@ int Ball::get_y()
 int Ball::get_radius()
 {
     return RADIUS;
+}
+
+void Ball::set_random_velocity()
+{
+    if (!is_seeded)
+    {
+        srand(time(NULL));
+        is_seeded = true;
+    }
+
+    int random_int = rand() % 4;
+
+    switch (random_int)
+    {
+    case 0:
+        velocity_x = VELOCITY;
+        velocity_y = VELOCITY;
+        break;
+
+    case 1:
+        velocity_x = -VELOCITY;
+        velocity_y = VELOCITY;
+        break;
+
+    case 2:
+        velocity_x = -VELOCITY;
+        velocity_y = -VELOCITY;
+        break;
+
+    case 3:
+        velocity_x = VELOCITY;
+        velocity_y = -VELOCITY;
+        break;
+
+    default:
+        velocity_x = 0;
+        velocity_y = 0;
+        break;
+    }
 }

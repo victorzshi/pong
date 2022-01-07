@@ -79,25 +79,25 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	bool running = true;
+	bool is_running = true;
 
 	SDL_Event event;
 
 	Walls walls(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	Paddle left_paddle(renderer, 20, SCREEN_HEIGHT / 2);
+	Paddle left_paddle(renderer, 20, SCREEN_HEIGHT / 2, Player::HUMAN_W_S);
 
-	Paddle right_paddle(renderer, SCREEN_WIDTH - 20, SCREEN_HEIGHT / 2);
+	Paddle right_paddle(renderer, SCREEN_WIDTH - 20, SCREEN_HEIGHT / 2, Player::HUMAN_UP_DOWN);
 
 	Ball ball(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
-	while (running)
+	while (is_running)
 	{
 		while (SDL_PollEvent(&event) != 0)
 		{
 			if (event.type == SDL_QUIT)
 			{
-				running = false;
+				is_running = false;
 			}
 
 			left_paddle.handle_event(event);
