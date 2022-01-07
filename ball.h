@@ -21,7 +21,7 @@ public:
 	int get_radius();
 
 private:
-	const int RADIUS = 5;
+	const int RADIUS = 4;
 
 	const int VELOCITY = 5;
 
@@ -32,4 +32,8 @@ private:
 	int start_x, start_y;
 
 	int velocity_x, velocity_y;
+
+	bool is_seeded = false;
+
+	void set_random_velocity();
 };
