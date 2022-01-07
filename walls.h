@@ -5,20 +5,22 @@
 class Walls
 {
 public:
-	Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT, int thickness = 1);
-
-	SDL_Rect& top();
-		
-	SDL_Rect& bottom();
-
-	SDL_Rect& left();
-
-	SDL_Rect& right();
+	Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT);
 
 	void render();
 
-private:
-	SDL_Renderer* _renderer;
+	SDL_Rect& get_top();
 
-	SDL_Rect _top, _bottom, _left, _right;
+	SDL_Rect& get_bottom();
+
+	SDL_Rect& get_left();
+
+	SDL_Rect& get_right();
+
+private:
+	const int THICKNESS = 5;
+
+	SDL_Renderer* renderer;
+
+	SDL_Rect top, bottom, left, right;
 };

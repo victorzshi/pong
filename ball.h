@@ -2,23 +2,34 @@
 
 #include <SDL.h>
 
+#include "paddle.h"
+#include "walls.h"
+
 class Ball
 {
 public:
-	Ball(SDL_Renderer* renderer, int x, int y, int r = 5, int velocity = 5);
+	Ball(SDL_Renderer* renderer, int x, int y);
 
-	void move(SDL_Rect& top, SDL_Rect& bottom, SDL_Rect& left, SDL_Rect& right);
+	void move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle);
 
 	void render();
 
+	int get_x();
+
+	int get_y();
+
+	int get_radius();
+
 private:
-	SDL_Renderer* _renderer;
+	const int RADIUS = 5;
 
-	int _position_x, _position_y, _radius;
+	const int VELOCITY = 5;
 
-	int _velocity_x, _velocity_y;
+	SDL_Renderer* renderer;
 
-	bool _is_collided(SDL_Rect& box);
+	int x, y;
+	
+	int start_x, start_y;
 
-	double _calculate_distance_squared(int x_1, int x_2, int y_1, int y_2);
+	int velocity_x, velocity_y;
 };

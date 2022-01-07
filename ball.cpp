@@ -2,15 +2,19 @@
 #include <ctime>
 
 #include "ball.h"
+#include "paddle.h"
+#include "physics.h"
 #include "walls.h"
 
-Ball::Ball(SDL_Renderer* renderer, int x, int y, int r, int velocity)
+Ball::Ball(SDL_Renderer* renderer, int x, int y)
 {
-	_renderer = renderer;
+	this->renderer = renderer;
 
-	_position_x = x;
-	_position_y = y;
-    _radius = r;
+    this->x = x;
+    this->y = y;
+
+    start_x = x;
+    start_y = y;
 
     // Choose 1 of 4 random directions for ball to go
     srand(time(NULL));
@@ -18,126 +22,101 @@ Ball::Ball(SDL_Renderer* renderer, int x, int y, int r, int velocity)
     switch (random_int)
     {
     case 0:
-        _velocity_x = velocity;
-        _velocity_y = velocity;
+        velocity_x = VELOCITY;
+        velocity_y = VELOCITY;
         break;
 
     case 1:
-        _velocity_x = -velocity;
-        _velocity_y = velocity;
+        velocity_x = -VELOCITY;
+        velocity_y = VELOCITY;
         break;
 
     case 2:
-        _velocity_x = -velocity;
-        _velocity_y = -velocity;
+        velocity_x = -VELOCITY;
+        velocity_y = -VELOCITY;
         break;
 
     case 3: 
-        _velocity_x = velocity;
-        _velocity_y = -velocity;
+        velocity_x = VELOCITY;
+        velocity_y = -VELOCITY;
         break;
 
     default:
-        _velocity_x = 0;
-        _velocity_y = 0;
+        velocity_x = 0;
+        velocity_y = 0;
         break;
     }
 }
 
-void Ball::move(SDL_Rect& top, SDL_Rect& bottom, SDL_Rect& left, SDL_Rect& right)
+void Ball::move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle)
 {
-    _position_x += _velocity_x;
-    _position_y += _velocity_y;
+    x += velocity_x;
+    y += velocity_y;
 
-    if (_is_collided(top) || _is_collided(bottom)) {
-        _velocity_y *= -1;
+    if (Physics::is_collision(*this, walls.get_top()) || 
+        Physics::is_collision(*this, walls.get_bottom())) {
+        y -= velocity_y;
+        velocity_y *= -1;
     }
 
-    if (_is_collided(left) || _is_collided(right)) {
-        _velocity_x *= -1;
+    if (Physics::is_collision(*this, left_paddle.get_collider()) ||
+        Physics::is_collision(*this, right_paddle.get_collider()))
+    {
+        x -= velocity_x;
+        velocity_x *= -1;
+    }
+
+    if (Physics::is_collision(*this, walls.get_left()) ||
+        Physics::is_collision(*this, walls.get_right()))
+    {
+        x = start_x;
+        y = start_y;
     }
 }
 
 void Ball::render()
 {
     // Midpoint circle algorithm
-    int x = _radius;
-    int y = 0;
+    int circle_x = RADIUS;
+    int circle_y = 0;
     int error = 0;
 
-    while (x >= y)
+    while (circle_x >= circle_y)
     {
-         SDL_RenderDrawPoint(_renderer, _position_x + x, _position_y + y);
-         SDL_RenderDrawPoint(_renderer, _position_x + y, _position_y + x);
-         SDL_RenderDrawPoint(_renderer, _position_x - y, _position_y + x);
-         SDL_RenderDrawPoint(_renderer, _position_x - x, _position_y + y);
-         SDL_RenderDrawPoint(_renderer, _position_x - x, _position_y - y);
-         SDL_RenderDrawPoint(_renderer, _position_x - y, _position_y - x);
-         SDL_RenderDrawPoint(_renderer, _position_x + y, _position_y - x);
-         SDL_RenderDrawPoint(_renderer, _position_x + x, _position_y - y);
+         SDL_RenderDrawLine(renderer, x, y, x + circle_x, y + circle_y);
+         SDL_RenderDrawLine(renderer, x, y, x + circle_y, y + circle_x);
+         SDL_RenderDrawLine(renderer, x, y, x - circle_y, y + circle_x);
+         SDL_RenderDrawLine(renderer, x, y, x - circle_x, y + circle_y);
+         SDL_RenderDrawLine(renderer, x, y, x - circle_x, y - circle_y);
+         SDL_RenderDrawLine(renderer, x, y, x - circle_y, y - circle_x);
+         SDL_RenderDrawLine(renderer, x, y, x + circle_y, y - circle_x);
+         SDL_RenderDrawLine(renderer, x, y, x + circle_x, y - circle_y);
 
         if (error <= 0)
         {
-            y += 1;
-            error += 2 * y + 1;
+            circle_y += 1;
+            error += 2 * circle_y + 1;
         }
 
         if (error > 0)
         {
-            x -= 1;
-            error -= 2 * x + 1;
+            circle_x -= 1;
+            error -= 2 * circle_x + 1;
         }
     }
 }
 
-bool Ball::_is_collided(SDL_Rect& box)
+int Ball::get_x()
 {
-    //Closest point on collision box
-    int closest_x, closest_y;
-
-    //Find closest x offset
-    if (_position_x < box.x)
-    {
-        closest_x = box.x;
-    }
-    else if (_position_x > box.x + box.w)
-    {
-        closest_x = box.x + box.w;
-    }
-    else
-    {
-        closest_x = _position_x;
-    }
-
-    //Find closest y offset
-    if (_position_y < box.y)
-    {
-        closest_y = box.y;
-    }
-    else if (_position_y > box.y + box.h)
-    {
-        closest_y = box.y + box.h;
-    }
-    else
-    {
-        closest_y = _position_y;
-    }
-
-    //If the closest point is inside the circle
-    if (_calculate_distance_squared(_position_x, _position_y, closest_x, closest_y) < _radius * _radius)
-    {
-        //This box and the circle have collided
-        return true;
-    }
-
-    //If the shapes have not collided
-    return false;
+    return x;
 }
 
-double Ball::_calculate_distance_squared(int x_1, int y_1, int x_2, int y_2)
+int Ball::get_y()
 {
-    int delta_x = x_2 - x_1;
-    int delta_y = y_2 - y_1;
+    return y;
+}
 
-    return delta_x * delta_x + delta_y * delta_y;
+int Ball::get_radius()
+{
+    return RADIUS;
 }
