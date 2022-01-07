@@ -2,12 +2,15 @@
 
 #include <SDL.h>
 
+#include "paddle.h"
+#include "walls.h"
+
 class Ball
 {
 public:
 	Ball(SDL_Renderer* renderer, int x, int y);
 
-	void move(SDL_Rect& top, SDL_Rect& bottom, SDL_Rect& left, SDL_Rect& right);
+	void move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle);
 
 	void render();
 
@@ -25,6 +28,8 @@ private:
 	SDL_Renderer* renderer;
 
 	int x, y;
+	
+	int start_x, start_y;
 
 	int velocity_x, velocity_y;
 };

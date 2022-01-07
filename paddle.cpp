@@ -1,6 +1,8 @@
 #include <SDL.h>
 
 #include "paddle.h"
+#include "physics.h"
+#include "walls.h"
 
 Paddle::Paddle(SDL_Renderer* renderer, int x, int y)
 {
@@ -40,9 +42,15 @@ void Paddle::handle_event(SDL_Event& event)
     }
 }
 
-void Paddle::move(SDL_Rect& top, SDL_Rect& bottom)
+void Paddle::move(Walls& walls)
 {
     collider.y += velocity_y;
+
+    if (Physics::is_collision(collider, walls.get_top()) ||
+        Physics::is_collision(collider, walls.get_bottom()))
+    {
+        collider.y -= velocity_y;
+    }
 }
 
 void Paddle::render()

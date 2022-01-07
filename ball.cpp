@@ -2,6 +2,7 @@
 #include <ctime>
 
 #include "ball.h"
+#include "paddle.h"
 #include "physics.h"
 #include "walls.h"
 
@@ -9,8 +10,11 @@ Ball::Ball(SDL_Renderer* renderer, int x, int y)
 {
 	this->renderer = renderer;
 
-	this->x = x;
-	this->y = y;
+    this->x = x;
+    this->y = y;
+
+    start_x = x;
+    start_y = y;
 
     // Choose 1 of 4 random directions for ball to go
     srand(time(NULL));
@@ -44,19 +48,29 @@ Ball::Ball(SDL_Renderer* renderer, int x, int y)
     }
 }
 
-void Ball::move(SDL_Rect& top, SDL_Rect& bottom, SDL_Rect& left, SDL_Rect& right)
+void Ball::move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle)
 {
     x += velocity_x;
     y += velocity_y;
 
-    if (Physics::is_collision(*this, top) || Physics::is_collision(*this, bottom)) {
+    if (Physics::is_collision(*this, walls.get_top()) || 
+        Physics::is_collision(*this, walls.get_bottom())) {
         y -= velocity_y;
         velocity_y *= -1;
     }
 
-    if (Physics::is_collision(*this, left) || Physics::is_collision(*this, right)) {
+    if (Physics::is_collision(*this, left_paddle.get_collider()) ||
+        Physics::is_collision(*this, right_paddle.get_collider()))
+    {
         x -= velocity_x;
         velocity_x *= -1;
+    }
+
+    if (Physics::is_collision(*this, walls.get_left()) ||
+        Physics::is_collision(*this, walls.get_right()))
+    {
+        x = start_x;
+        y = start_y;
     }
 }
 

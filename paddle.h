@@ -2,6 +2,8 @@
 
 #include <SDL.h>
 
+#include "walls.h"
+
 class Paddle
 {
 public:
@@ -9,7 +11,7 @@ public:
 
 	void handle_event(SDL_Event& event);
 
-	void move(SDL_Rect& top, SDL_Rect& bottom);
+	void move(Walls& walls);
 
 	void render();
 

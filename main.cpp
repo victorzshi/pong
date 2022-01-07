@@ -85,7 +85,9 @@ int main(int argc, char* args[])
 
 	Walls walls(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	Paddle paddle(renderer, 20, SCREEN_HEIGHT / 2);
+	Paddle left_paddle(renderer, 20, SCREEN_HEIGHT / 2);
+
+	Paddle right_paddle(renderer, SCREEN_WIDTH - 20, SCREEN_HEIGHT / 2);
 
 	Ball ball(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
@@ -98,18 +100,21 @@ int main(int argc, char* args[])
 				running = false;
 			}
 
-			paddle.handle_event(event);
+			left_paddle.handle_event(event);
+			right_paddle.handle_event(event);
 		}
 
-		paddle.move(walls.get_top(), walls.get_bottom());
-		ball.move(walls.get_top(), walls.get_bottom(), walls.get_left(), walls.get_right());
+		left_paddle.move(walls);
+		right_paddle.move(walls);
+		ball.move(walls, left_paddle, right_paddle);
 
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
 
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		walls.render();
-		paddle.render();
+		left_paddle.render();
+		right_paddle.render();
 		ball.render();
 
 		SDL_RenderPresent(renderer);
