@@ -76,8 +76,10 @@ void Paddle::handle_event(SDL_Event& event)
     }
 }
 
-void Paddle::move(Walls& walls)
+void Paddle::move(Walls& walls, int ball_x, int ball_y)
 {
+    if (player == Player::CPU) cpu_move(ball_x, ball_y);
+
     collider.y += velocity_y;
 
     if (Physics::is_collision(collider, walls.get_top()) ||
@@ -95,4 +97,27 @@ void Paddle::render()
 SDL_Rect& Paddle::get_collider()
 {
     return collider;
+}
+
+void Paddle::cpu_move(int ball_x, int ball_y)
+{
+    int distance = collider.x - ball_x;
+    int center = collider.y + (collider.h / 2);
+    
+    if (distance < 150)
+    {
+        if (ball_y > center)
+        {
+            velocity_y = VELOCITY;
+        }
+    
+        if (ball_y < center)
+        {
+            velocity_y = -VELOCITY;
+        }
+    }
+    else
+    {
+        velocity_y = 0;
+    }
 }

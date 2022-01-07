@@ -14,14 +14,14 @@ public:
 
 	void handle_event(SDL_Event& event);
 
-	void move(Walls& walls);
+	void move(Walls& walls, int ball_x, int ball_y);
 
 	void render();
 
 	SDL_Rect& get_collider();
 
 private:
-	const int WIDTH = 10;
+	const int WIDTH = 1;
 	const int LENGTH = 50;
 	const int VELOCITY = 5;
 
@@ -32,4 +32,6 @@ private:
 	SDL_Rect collider;
 
 	Player player;
+
+	void cpu_move(int ball_x, int ball_y);
 };

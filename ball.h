@@ -21,7 +21,7 @@ public:
 	int get_radius();
 
 private:
-	const int RADIUS = 5;
+	const int RADIUS = 4;
 
 	const int VELOCITY = 5;
 

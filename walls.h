@@ -18,7 +18,7 @@ public:
 	SDL_Rect& get_right();
 
 private:
-	const int THICKNESS = 5;
+	const int THICKNESS = 1;
 
 	SDL_Renderer* renderer;
 

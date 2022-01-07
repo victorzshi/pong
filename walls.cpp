@@ -4,10 +4,10 @@ Walls::Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT)
 {
 	this->renderer = renderer;
 
-	top = { 0, 0, SCREEN_WIDTH, THICKNESS };
-	bottom = { 0, SCREEN_HEIGHT - THICKNESS, SCREEN_WIDTH, THICKNESS };
-	left = { 0, 0, THICKNESS, SCREEN_HEIGHT };
-	right = {SCREEN_WIDTH - THICKNESS, 0, THICKNESS, SCREEN_HEIGHT};
+	top = { 0, 0 - THICKNESS, SCREEN_WIDTH, THICKNESS };
+	bottom = { 0, SCREEN_HEIGHT, SCREEN_WIDTH, THICKNESS };
+	left = { 0 - THICKNESS, 0, THICKNESS, SCREEN_HEIGHT };
+	right = {SCREEN_WIDTH, 0, THICKNESS, SCREEN_HEIGHT};
 }
 
 void Walls::render()

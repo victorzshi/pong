@@ -56,14 +56,14 @@ void Ball::render()
 
     while (circle_x >= circle_y)
     {
-         SDL_RenderDrawLine(renderer, x, y, x + circle_x, y + circle_y);
-         SDL_RenderDrawLine(renderer, x, y, x + circle_y, y + circle_x);
-         SDL_RenderDrawLine(renderer, x, y, x - circle_y, y + circle_x);
-         SDL_RenderDrawLine(renderer, x, y, x - circle_x, y + circle_y);
-         SDL_RenderDrawLine(renderer, x, y, x - circle_x, y - circle_y);
-         SDL_RenderDrawLine(renderer, x, y, x - circle_y, y - circle_x);
-         SDL_RenderDrawLine(renderer, x, y, x + circle_y, y - circle_x);
-         SDL_RenderDrawLine(renderer, x, y, x + circle_x, y - circle_y);
+         SDL_RenderDrawPoint(renderer, x + circle_x, y + circle_y);
+         SDL_RenderDrawPoint(renderer, x + circle_y, y + circle_x);
+         SDL_RenderDrawPoint(renderer, x - circle_y, y + circle_x);
+         SDL_RenderDrawPoint(renderer, x - circle_x, y + circle_y);
+         SDL_RenderDrawPoint(renderer, x - circle_x, y - circle_y);
+         SDL_RenderDrawPoint(renderer, x - circle_y, y - circle_x);
+         SDL_RenderDrawPoint(renderer, x + circle_y, y - circle_x);
+         SDL_RenderDrawPoint(renderer, x + circle_x, y - circle_y);
 
         if (error <= 0)
         {

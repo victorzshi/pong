@@ -85,9 +85,9 @@ int main(int argc, char* args[])
 
 	Walls walls(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	Paddle left_paddle(renderer, 20, SCREEN_HEIGHT / 2, Player::HUMAN_W_S);
+	Paddle left_paddle(renderer, 19, SCREEN_HEIGHT / 2, Player::HUMAN_UP_DOWN);
 
-	Paddle right_paddle(renderer, SCREEN_WIDTH - 20, SCREEN_HEIGHT / 2, Player::HUMAN_UP_DOWN);
+	Paddle right_paddle(renderer, SCREEN_WIDTH - 19, SCREEN_HEIGHT / 2, Player::CPU);
 
 	Ball ball(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
@@ -104,8 +104,8 @@ int main(int argc, char* args[])
 			right_paddle.handle_event(event);
 		}
 
-		left_paddle.move(walls);
-		right_paddle.move(walls);
+		left_paddle.move(walls, ball.get_x(), ball.get_y());
+		right_paddle.move(walls, ball.get_x(), ball.get_y());
 		ball.move(walls, left_paddle, right_paddle);
 
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
