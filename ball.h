@@ -11,17 +11,20 @@ public:
 
 	void render();
 
+	int get_x();
+
+	int get_y();
+
+	int get_radius();
+
 private:
 	const int RADIUS = 5;
+
 	const int VELOCITY = 5;
 
 	SDL_Renderer* renderer;
 
-	int position_x, position_y;
+	int x, y;
 
 	int velocity_x, velocity_y;
-
-	bool is_collided(SDL_Rect& box);
-
-	double calculate_distance_squared(int x_1, int x_2, int y_1, int y_2);
 };
