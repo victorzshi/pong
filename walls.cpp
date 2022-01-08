@@ -16,6 +16,8 @@ void Walls::render()
 	SDL_RenderFillRect(renderer, &bottom);
 	SDL_RenderFillRect(renderer, &left);
 	SDL_RenderFillRect(renderer, &right);
+	
+	render_halfway_line();
 }
 
 SDL_Rect& Walls::get_top()
@@ -36,4 +38,15 @@ SDL_Rect& Walls::get_left()
 SDL_Rect& Walls::get_right()
 {
 	return right;
+}
+
+void Walls::render_halfway_line()
+{
+	for (int i = 0; i < left.h; i++)
+	{
+		if (i % 10 < 5)
+		{
+			SDL_RenderDrawPoint(renderer, top.w / 2, i);
+		}
+	}
 }
