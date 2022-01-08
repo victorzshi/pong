@@ -3,6 +3,7 @@
 #include <SDL.h>
 
 #include "paddle.h"
+#include "score.h"
 #include "walls.h"
 
 class Ball
@@ -10,7 +11,7 @@ class Ball
 public:
 	Ball(SDL_Renderer* renderer, int x, int y);
 
-	void move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle);
+	void move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle, Score& score);
 
 	void render();
 
@@ -36,4 +37,6 @@ private:
 	bool is_seeded = false;
 
 	void set_random_velocity();
+
+	void reset();
 };

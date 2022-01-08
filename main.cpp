@@ -3,9 +3,11 @@
 #include <string>
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 #include "ball.h"
 #include "paddle.h"
+#include "score.h"
 #include "walls.h"
 
 // Screen dimensions
@@ -23,6 +25,9 @@ SDL_Window* window = NULL;
 
 // Global renderer
 SDL_Renderer* renderer = NULL;
+
+// Global font
+TTF_Font* font = NULL;
 
 bool start()
 {
@@ -54,20 +59,41 @@ bool start()
 		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 		return false;
 	}
+	else
+	{
+		// Initialize renderer color to black
+		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+	}
 
-	// Initialize renderer color to black
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+	// Initialize SDL_ttf
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+		return false;
+	}
+
+	// Open the font
+	font = TTF_OpenFont("PressStart2P-Regular.ttf", 32);
+	if (font == NULL)
+	{
+		printf("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
+		return false;
+	}
 
 	return true;
 }
 
 void stop()
 {
+	TTF_CloseFont(font);
+	font = NULL;
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	window = NULL;
 	renderer = NULL;
 
+	TTF_Quit();
 	SDL_Quit();
 }
 
@@ -85,13 +111,15 @@ int main(int argc, char* args[])
 
 	Walls walls(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	Score score(renderer, font, SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	Paddle left_paddle(renderer, 19, SCREEN_HEIGHT / 2, Player::HUMAN_UP_DOWN);
 
-	Paddle right_paddle(renderer, SCREEN_WIDTH - 19, SCREEN_HEIGHT / 2, Player::CPU);
+	Paddle right_paddle(renderer, SCREEN_WIDTH - 20, SCREEN_HEIGHT / 2, Player::CPU);
 
 	Ball ball(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
-	while (is_running)
+	while (is_running && !score.is_game_over())
 	{
 		while (SDL_PollEvent(&event) != 0)
 		{
@@ -106,13 +134,14 @@ int main(int argc, char* args[])
 
 		left_paddle.move(walls, ball.get_x(), ball.get_y());
 		right_paddle.move(walls, ball.get_x(), ball.get_y());
-		ball.move(walls, left_paddle, right_paddle);
+		ball.move(walls, left_paddle, right_paddle, score);
 
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
 
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		walls.render();
+		score.render();
 		left_paddle.render();
 		right_paddle.render();
 		ball.render();
@@ -120,7 +149,22 @@ int main(int argc, char* args[])
 		SDL_RenderPresent(renderer);
 	}
 
-	stop();
+	if (!is_running)
+	{
+		stop();
 
-	return 0;
+		return 0;
+	}
+	else
+	{
+		while (true)
+		{
+			if (SDL_PollEvent(&event) != 0 && event.type == SDL_QUIT)
+			{
+				stop();
+
+				return 0;
+			}
+		}
+	}
 }

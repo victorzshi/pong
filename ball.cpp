@@ -4,6 +4,7 @@
 #include "ball.h"
 #include "paddle.h"
 #include "physics.h"
+#include "score.h"
 #include "walls.h"
 
 Ball::Ball(SDL_Renderer* renderer, int x, int y)
@@ -19,7 +20,7 @@ Ball::Ball(SDL_Renderer* renderer, int x, int y)
     set_random_velocity();
 }
 
-void Ball::move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle)
+void Ball::move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle, Score& score)
 {
     x += velocity_x;
     y += velocity_y;
@@ -37,13 +38,16 @@ void Ball::move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle)
         velocity_x *= -1;
     }
 
-    if (Physics::is_collision(*this, walls.get_left()) ||
-        Physics::is_collision(*this, walls.get_right()))
+    if (Physics::is_collision(*this, walls.get_left()))
     {
-        x = start_x;
-        y = start_y;
+        score.increment_right_total();
+        reset();
+    }
 
-        set_random_velocity();
+    if (Physics::is_collision(*this, walls.get_right()))
+    {
+        score.increment_left_total();
+        reset();
     }
 }
 
@@ -92,6 +96,14 @@ int Ball::get_y()
 int Ball::get_radius()
 {
     return RADIUS;
+}
+
+void Ball::reset()
+{
+    x = start_x;
+    y = start_y;
+
+    set_random_velocity();
 }
 
 void Ball::set_random_velocity()
