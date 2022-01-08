@@ -23,4 +23,6 @@ private:
 	SDL_Renderer* renderer;
 
 	SDL_Rect top, bottom, left, right;
+
+	void render_halfway_line();
 };

@@ -101,7 +101,7 @@ SDL_Rect& Paddle::get_collider()
 
 void Paddle::cpu_move(int ball_x, int ball_y)
 {
-    int distance = collider.x - ball_x;
+    int distance = abs(collider.x - ball_x);
     int center = collider.y + (collider.h / 2);
     
     if (distance < 150)
