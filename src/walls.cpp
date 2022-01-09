@@ -1,13 +1,13 @@
 #include "walls.h"
 
-Walls::Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT)
+Walls::Walls(SDL_Renderer* renderer, int screen_width, int screen_height)
 {
 	this->renderer = renderer;
 
-	top = { 0, 0 - THICKNESS, SCREEN_WIDTH, THICKNESS };
-	bottom = { 0, SCREEN_HEIGHT, SCREEN_WIDTH, THICKNESS };
-	left = { 0 - THICKNESS, 0, THICKNESS, SCREEN_HEIGHT };
-	right = {SCREEN_WIDTH, 0, THICKNESS, SCREEN_HEIGHT};
+	top = { 0, 0 - THICKNESS, screen_width, THICKNESS };
+	bottom = { 0, screen_height, screen_width, THICKNESS };
+	left = { 0 - THICKNESS, 0, THICKNESS, screen_height };
+	right = {screen_width, 0, THICKNESS, screen_height};
 }
 
 void Walls::render()
