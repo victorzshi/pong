@@ -119,23 +119,23 @@ void Ball::set_random_velocity()
     switch (random_int)
     {
     case 0:
-        velocity_x = VELOCITY;
-        velocity_y = VELOCITY;
+        velocity_x = SPEED;
+        velocity_y = SPEED;
         break;
 
     case 1:
-        velocity_x = -VELOCITY;
-        velocity_y = VELOCITY;
+        velocity_x = -SPEED;
+        velocity_y = SPEED;
         break;
 
     case 2:
-        velocity_x = -VELOCITY;
-        velocity_y = -VELOCITY;
+        velocity_x = -SPEED;
+        velocity_y = -SPEED;
         break;
 
     case 3:
-        velocity_x = VELOCITY;
-        velocity_y = -VELOCITY;
+        velocity_x = SPEED;
+        velocity_y = -SPEED;
         break;
 
     default:

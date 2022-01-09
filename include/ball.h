@@ -24,7 +24,7 @@ public:
 private:
 	const int RADIUS = 4;
 
-	const int VELOCITY = 5;
+	const int SPEED = 5;
 
 	SDL_Renderer* renderer;
 
