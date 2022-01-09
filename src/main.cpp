@@ -5,10 +5,10 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#include "include/ball.h"
-#include "include/paddle.h"
-#include "include/score.h"
-#include "include/walls.h"
+#include "ball.h"
+#include "paddle.h"
+#include "score.h"
+#include "walls.h"
 
 // Screen dimensions
 const int SCREEN_WIDTH = 640;

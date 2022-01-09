@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "include/score.h"
+#include "score.h"
 
 Score::Score(SDL_Renderer* renderer, TTF_Font* font, int SCREEN_WIDTH, int SCREEN_HEIGHT)
 {

@@ -78,13 +78,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\vclib\SDL2_ttf-2.0.15\include;C:\vclib\SDL2-2.0.18\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\vclib\SDL2_ttf-2.0.15\lib\x64;C:\vclib\SDL2-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)lib\SDL2_ttf-2.0.15\include;$(ProjectDir)lib\SDL2-2.0.18\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\SDL2_ttf-2.0.15\lib\x64;$(ProjectDir)lib\SDL2-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\vclib\SDL2_ttf-2.0.15\include;C:\vclib\SDL2-2.0.18\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\vclib\SDL2_ttf-2.0.15\lib\x64;C:\vclib\SDL2-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)lib\SDL2_ttf-2.0.15\include;$(ProjectDir)lib\SDL2-2.0.18\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\SDL2_ttf-2.0.15\lib\x64;$(ProjectDir)lib\SDL2-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -120,7 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,7 +136,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
