@@ -1,11 +1,11 @@
 #include <cstdlib>
 #include <ctime>
 
-#include "ball.h"
-#include "paddle.h"
-#include "physics.h"
-#include "score.h"
-#include "walls.h"
+#include "include/ball.h"
+#include "include/paddle.h"
+#include "include/physics.h"
+#include "include/score.h"
+#include "include/walls.h"
 
 Ball::Ball(SDL_Renderer* renderer, int x, int y)
 {
