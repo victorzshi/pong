@@ -4,15 +4,15 @@
 
 #include "score.h"
 
-Score::Score(SDL_Renderer* renderer, TTF_Font* font, int SCREEN_WIDTH, int SCREEN_HEIGHT)
+Score::Score(SDL_Renderer* renderer, TTF_Font* font, int screen_width, int screen_height)
 {
 	this->renderer = renderer;
 
+	this->screen_width = screen_width;
+	this->screen_height = screen_height;
+
 	left_total = 0;
 	right_total = 0;
-
-	this->SCREEN_WIDTH = SCREEN_WIDTH;
-	this->SCREEN_HEIGHT = SCREEN_HEIGHT;
 
 	digit_textures.resize(MAX_SCORE + 1);
 	digit_boxes.resize(MAX_SCORE + 1);
@@ -75,8 +75,8 @@ bool Score::is_game_over()
 
 void Score::render()
 {
-	int left_x = (SCREEN_WIDTH * 0.25) - (digit_boxes[left_total].w / 2);
-	int right_x = (SCREEN_WIDTH * 0.75) - (digit_boxes[left_total].w / 2);
+	int left_x = (screen_width * 0.25) - (digit_boxes[left_total].w / 2);
+	int right_x = (screen_width * 0.75) - (digit_boxes[left_total].w / 2);
 
 	SDL_Rect left_box = { left_x, 20, digit_boxes[left_total].w, digit_boxes[left_total].h };
 	SDL_Rect right_box = { right_x, 20, digit_boxes[left_total].w, digit_boxes[left_total].h };

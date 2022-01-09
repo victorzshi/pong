@@ -8,7 +8,7 @@
 class Score
 {
 public:
-	Score(SDL_Renderer* renderer, TTF_Font* font, int SCREEN_WIDTH, int SCREEN_HEIGHT);
+	Score(SDL_Renderer* renderer, TTF_Font* font, int screen_width, int screen_height);
 
 	void increment_left_total();
 
@@ -23,7 +23,7 @@ private:
 
 	SDL_Renderer* renderer;
 
-	int SCREEN_WIDTH, SCREEN_HEIGHT;
+	int screen_width, screen_height;
 
 	int left_total, right_total;
 
