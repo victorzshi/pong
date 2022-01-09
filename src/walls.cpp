@@ -1,4 +1,4 @@
-#include "walls.h"
+#include "include/walls.h"
 
 Walls::Walls(SDL_Renderer* renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT)
 {

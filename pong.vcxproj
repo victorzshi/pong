@@ -118,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,19 +144,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ball.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="paddle.cpp" />
-    <ClCompile Include="physics.cpp" />
-    <ClCompile Include="score.cpp" />
-    <ClCompile Include="walls.cpp" />
+    <ClCompile Include="src\ball.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\paddle.cpp" />
+    <ClCompile Include="src\physics.cpp" />
+    <ClCompile Include="src\score.cpp" />
+    <ClCompile Include="src\walls.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ball.h" />
-    <ClInclude Include="paddle.h" />
-    <ClInclude Include="physics.h" />
-    <ClInclude Include="score.h" />
-    <ClInclude Include="walls.h" />
+    <ClInclude Include="include\ball.h" />
+    <ClInclude Include="include\paddle.h" />
+    <ClInclude Include="include\physics.h" />
+    <ClInclude Include="include\score.h" />
+    <ClInclude Include="include\walls.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

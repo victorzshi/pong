@@ -15,39 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="walls.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ball.cpp">
+    <ClCompile Include="src\paddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="paddle.cpp">
+    <ClCompile Include="src\physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="physics.cpp">
+    <ClCompile Include="src\score.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="score.cpp">
+    <ClCompile Include="src\walls.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="walls.h">
+    <ClInclude Include="include\ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ball.h">
+    <ClInclude Include="include\paddle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="paddle.h">
+    <ClInclude Include="include\physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics.h">
+    <ClInclude Include="include\score.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="score.h">
+    <ClInclude Include="include\walls.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

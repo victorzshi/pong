@@ -5,10 +5,10 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#include "ball.h"
-#include "paddle.h"
-#include "score.h"
-#include "walls.h"
+#include "include/ball.h"
+#include "include/paddle.h"
+#include "include/score.h"
+#include "include/walls.h"
 
 // Screen dimensions
 const int SCREEN_WIDTH = 640;
@@ -73,10 +73,10 @@ bool start()
 	}
 
 	// Open the font
-	font = TTF_OpenFont("PressStart2P-Regular.ttf", 32);
+	font = TTF_OpenFont("assets/PressStart2P-Regular.ttf", 32);
 	if (font == NULL)
 	{
-		printf("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
+		printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
 		return false;
 	}
 

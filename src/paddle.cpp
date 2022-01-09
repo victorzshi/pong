@@ -1,9 +1,9 @@
 #include <SDL.h>
 
-#include "ball.h"
-#include "paddle.h"
-#include "physics.h"
-#include "walls.h"
+#include "include/ball.h"
+#include "include/paddle.h"
+#include "include/physics.h"
+#include "include/walls.h"
 
 Paddle::Paddle(SDL_Renderer* renderer, int x, int y, Player player)
 {
