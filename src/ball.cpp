@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "audio.h"
 #include "ball.h"
 #include "paddle.h"
 #include "physics.h"
@@ -20,13 +21,15 @@ Ball::Ball(SDL_Renderer* renderer, int x, int y)
     set_random_velocity();
 }
 
-void Ball::move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle, Score& score)
+void Ball::move(Score& score, Audio& audio, Walls& walls, Paddle& left_paddle, Paddle& right_paddle)
 {
     x += velocity_x;
     y += velocity_y;
 
     if (Physics::is_collision(*this, walls.get_top()) || 
         Physics::is_collision(*this, walls.get_bottom())) {
+        audio.play_plop();
+
         y -= velocity_y;
         velocity_y *= -1;
     }
@@ -34,19 +37,27 @@ void Ball::move(Walls& walls, Paddle& left_paddle, Paddle& right_paddle, Score& 
     if (Physics::is_collision(*this, left_paddle.get_collider()) ||
         Physics::is_collision(*this, right_paddle.get_collider()))
     {
+        audio.play_beeep();
+
         x -= velocity_x;
         velocity_x *= -1;
     }
 
     if (Physics::is_collision(*this, walls.get_left()))
     {
+        audio.play_peeeeeep();
+
         score.increment_right_total();
+
         reset();
     }
 
     if (Physics::is_collision(*this, walls.get_right()))
     {
+        audio.play_peeeeeep();
+
         score.increment_left_total();
+
         reset();
     }
 }

@@ -3,8 +3,10 @@
 #include <string>
 
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include <SDL_ttf.h>
 
+#include "audio.h"
 #include "ball.h"
 #include "paddle.h"
 #include "score.h"
@@ -29,10 +31,13 @@ SDL_Renderer* renderer = NULL;
 // Global font
 TTF_Font* font = NULL;
 
+// Sound effects
+Audio audio;
+
 bool start()
 {
 	// Initialize SDL
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
 		return false;
@@ -73,10 +78,17 @@ bool start()
 	}
 
 	// Open the font
-	font = TTF_OpenFont("assets/PressStart2P-Regular.ttf", 32);
+	font = TTF_OpenFont("assets/fonts/PressStart2P-Regular.ttf", 32);
 	if (font == NULL)
 	{
 		printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
+		return false;
+	}
+
+	// Initialize SDL_mixer
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	{
+		printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 		return false;
 	}
 
@@ -85,6 +97,8 @@ bool start()
 
 void stop()
 {
+	audio.free();
+
 	TTF_CloseFont(font);
 	font = NULL;
 
@@ -93,6 +107,7 @@ void stop()
 	window = NULL;
 	renderer = NULL;
 
+	Mix_Quit();
 	TTF_Quit();
 	SDL_Quit();
 }
@@ -109,9 +124,11 @@ int main(int argc, char* args[])
 
 	SDL_Event event;
 
-	Walls walls(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+	audio = Audio();
 
 	Score score(renderer, font, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	Walls walls(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	Paddle left_paddle(renderer, 19, SCREEN_HEIGHT / 2, Player::HUMAN_UP_DOWN);
 
@@ -134,7 +151,7 @@ int main(int argc, char* args[])
 
 		left_paddle.move(walls, ball.get_x(), ball.get_y());
 		right_paddle.move(walls, ball.get_x(), ball.get_y());
-		ball.move(walls, left_paddle, right_paddle, score);
+		ball.move(score, audio, walls, left_paddle, right_paddle);
 
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
