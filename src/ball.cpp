@@ -21,10 +21,18 @@ Ball::Ball(SDL_Renderer* renderer, int x, int y)
     set_random_velocity();
 }
 
-void Ball::move(Score& score, Audio& audio, Walls& walls, Paddle& left_paddle, Paddle& right_paddle)
+void Ball::move(Score& score, Audio& audio, Walls& walls, Paddle& left_paddle, Paddle& right_paddle, Uint32 elapsed_time)
 {
-    x += velocity_x;
-    y += velocity_y;
+    if (elapsed_time > 0)
+    {
+        x += velocity_x * elapsed_time;
+        y += velocity_y * elapsed_time;
+    }
+    else
+    {
+        x += velocity_x;
+        y += velocity_y;
+    }
 
     if (Physics::is_collision(*this, walls.get_top()) || 
         Physics::is_collision(*this, walls.get_bottom())) {

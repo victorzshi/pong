@@ -10,6 +10,7 @@
 #include "ball.h"
 #include "paddle.h"
 #include "score.h"
+#include "timer.h"
 #include "walls.h"
 
 // Screen dimensions
@@ -124,6 +125,8 @@ int main(int argc, char* args[])
 
 	SDL_Event event;
 
+	Timer timer;
+
 	audio = Audio();
 
 	Score score(renderer, font, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -138,6 +141,8 @@ int main(int argc, char* args[])
 
 	while (is_running && !score.is_game_over())
 	{
+		timer.start();
+
 		while (SDL_PollEvent(&event) != 0)
 		{
 			if (event.type == SDL_QUIT)
@@ -151,7 +156,7 @@ int main(int argc, char* args[])
 
 		left_paddle.move(walls, ball.get_x(), ball.get_y());
 		right_paddle.move(walls, ball.get_x(), ball.get_y());
-		ball.move(score, audio, walls, left_paddle, right_paddle);
+		ball.move(score, audio, walls, left_paddle, right_paddle, timer.get_elapsed_time());
 
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
