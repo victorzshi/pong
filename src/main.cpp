@@ -13,9 +13,11 @@
 #include "timer.h"
 #include "walls.h"
 
-// Screen dimensions
+// Screen constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
+const int SCREEN_FPS = 60;
+const int SCREEN_TIME_PER_FRAME = 1000 / SCREEN_FPS;
 
 // Start SDL and show window
 bool start();
@@ -58,8 +60,8 @@ bool start()
 		return false;
 	}
 
-	// Create vertical sync renderer
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	// Create renderer
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (renderer == NULL)
 	{
 		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
@@ -125,8 +127,6 @@ int main(int argc, char* args[])
 
 	SDL_Event event;
 
-	Timer timer;
-
 	audio = Audio();
 
 	Score score(renderer, font, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -139,9 +139,13 @@ int main(int argc, char* args[])
 
 	Ball ball(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
+	Timer frame_timer;
+
+	int total_frames = 0;
+
 	while (is_running && !score.is_game_over())
 	{
-		timer.start();
+		frame_timer.start();
 
 		while (SDL_PollEvent(&event) != 0)
 		{
@@ -156,7 +160,7 @@ int main(int argc, char* args[])
 
 		left_paddle.move(walls, ball.get_x(), ball.get_y());
 		right_paddle.move(walls, ball.get_x(), ball.get_y());
-		ball.move(score, audio, walls, left_paddle, right_paddle, timer.get_elapsed_time());
+		ball.move(score, audio, walls, left_paddle, right_paddle);
 
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
@@ -169,6 +173,12 @@ int main(int argc, char* args[])
 		ball.render();
 
 		SDL_RenderPresent(renderer);
+		++total_frames;
+		int frame_time = frame_timer.get_elapsed_time();
+		if (frame_time < SCREEN_TIME_PER_FRAME)
+		{
+			SDL_Delay(SCREEN_TIME_PER_FRAME - frame_time);
+		}
 	}
 
 	if (!is_running)
