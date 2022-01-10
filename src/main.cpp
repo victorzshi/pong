@@ -160,7 +160,7 @@ int main(int argc, char* args[])
 
 		left_paddle.move(walls, ball.get_x(), ball.get_y());
 		right_paddle.move(walls, ball.get_x(), ball.get_y());
-		ball.move(score, audio, walls, left_paddle, right_paddle, frame_timer.get_elapsed_time());
+		ball.move(score, audio, walls, left_paddle, right_paddle);
 
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);

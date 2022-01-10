@@ -12,7 +12,7 @@ class Ball
 public:
 	Ball(SDL_Renderer* renderer, int x, int y);
 
-	void move(Score& score, Audio& audio, Walls& walls, Paddle& left_paddle, Paddle& right_paddle, Uint32 elapsed_time);
+	void move(Score& score, Audio& audio, Walls& walls, Paddle& left_paddle, Paddle& right_paddle);
 
 	void render();
 
