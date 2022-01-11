@@ -78,13 +78,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)lib\SDL2_mixer-2.0.4\include;$(ProjectDir)lib\SDL2_ttf-2.0.15\include;$(ProjectDir)lib\SDL2-2.0.18\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\SDL2_mixer-2.0.4\lib\x64;$(ProjectDir)lib\SDL2_ttf-2.0.15\lib\x64;$(ProjectDir)lib\SDL2-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\vclib\SDL2_mixer-2.0.4\include;C:\vclib\SDL2_ttf-2.0.15\include;C:\vclib\SDL2-2.0.18\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\vclib\SDL2_mixer-2.0.4\lib\x64;C:\vclib\SDL2_ttf-2.0.15\lib\x64;C:\vclib\SDL2-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)lib\SDL2_mixer-2.0.4\include;$(ProjectDir)lib\SDL2_ttf-2.0.15\include;$(ProjectDir)lib\SDL2-2.0.18\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\SDL2_mixer-2.0.4\lib\x64;$(ProjectDir)lib\SDL2_ttf-2.0.15\lib\x64;$(ProjectDir)lib\SDL2-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\vclib\SDL2_mixer-2.0.4\include;C:\vclib\SDL2_ttf-2.0.15\include;C:\vclib\SDL2-2.0.18\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\vclib\SDL2_mixer-2.0.4\lib\x64;C:\vclib\SDL2_ttf-2.0.15\lib\x64;C:\vclib\SDL2-2.0.18\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
