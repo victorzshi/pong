@@ -6,19 +6,19 @@
 
 Audio::Audio()
 {
-    beeep = Mix_LoadWAV("assets/sounds/beeep.ogg");
+    beeep = Mix_LoadWAV("assets/sounds/ping_pong_8bit_beeep.ogg");
     if (beeep == NULL)
     {
         printf("Failed to load beeep sound effect! SDL_mixer Error: %s\n", Mix_GetError());
     }
 
-    peeeeeep = Mix_LoadWAV("assets/sounds/peeeeeep.ogg");
+    peeeeeep = Mix_LoadWAV("assets/sounds/ping_pong_8bit_peeeeeep.ogg");
     if (peeeeeep == NULL)
     {
         printf("Failed to load peeeeeep sound effect! SDL_mixer Error: %s\n", Mix_GetError());
     }
 
-    plop = Mix_LoadWAV("assets/sounds/plop.ogg");
+    plop = Mix_LoadWAV("assets/sounds/ping_pong_8bit_plop.ogg");
     if (plop == NULL)
     {
         printf("Failed to load plop sound effect! SDL_mixer Error: %s\n", Mix_GetError());
