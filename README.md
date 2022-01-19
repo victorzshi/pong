@@ -1,6 +1,6 @@
 # Pong
 
-C++ clone of Atari's 1972 Pong.
+C++ clone of Atari's arcade game Pong (1972).
 
 ![Gameplay](pong.gif)
 
